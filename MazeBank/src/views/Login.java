@@ -1,11 +1,17 @@
 package views;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.SwingConstants;
+import javax.swing.border.EmptyBorder;
+
+import roundedComponents.RoundPanel;
 
 public class Login extends JFrame {
 
@@ -48,16 +54,39 @@ public class Login extends JFrame {
 		contentPane.add(firstSide);
 		firstSide.setLayout(null);
 		
-		JPanel loginPanel = new JPanel();
+		RoundPanel loginPanel = new RoundPanel(20, 20);
 		loginPanel.setBounds(107, 55, 425, 573);
 		firstSide.add(loginPanel);
+		loginPanel.setLayout(null);
+		
+		JLabel loginTitle = new JLabel("<html>Login into your<br>account</html>");
+		loginTitle.setHorizontalAlignment(SwingConstants.LEFT);
+		loginTitle.setFont(new Font("Inter 28pt Black", Font.PLAIN, 33));
+		loginTitle.setBounds(81, 59, 263, 87);
+		loginPanel.add(loginTitle);
 		
 		JPanel secondSide = new JPanel();
 		secondSide.setBackground(new Color(44, 144, 151));
 		secondSide.setBounds(640, 0, 626, 683);
 		contentPane.add(secondSide);
+		secondSide.setLayout(null);
 		
+		JLabel title = new JLabel("Welcome Back");
+		title.setFont(new Font("Inter 28pt Black", Font.PLAIN, 50));
+		title.setForeground(new Color(255, 255, 255));
+		title.setHorizontalAlignment(SwingConstants.CENTER);
+		title.setBounds(116, 98, 393, 44);
+		secondSide.add(title);
 		
+		JLabel logo = new JLabel("");
+		logo.setBounds(238, 204, 150, 150);
+		secondSide.add(logo);
+		logo.setIcon(new ImageIcon(getClass().getResource("/logo.png")));
+		
+		JLabel vector = new JLabel("");
+		vector.setBounds(41, 392, 457, 269);
+		secondSide.add(vector);
+		vector.setIcon(new ImageIcon(getClass().getResource("/vector.png")));
 		
 	}
 }
