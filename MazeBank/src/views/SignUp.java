@@ -271,6 +271,10 @@ public class SignUp extends JFrame {
 		service.userRegister(u);
 		JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
 		
+		Dashboard d = new Dashboard(u);
+		d.setVisible(true);
+		dispose();
+		
 	}
 	
 }
