@@ -26,6 +26,11 @@ public class User {
 		this.money = 0.0F;
 		this.contacts = new ArrayList<>();
 	}
+	
+	public User(String username, String password) {
+		this.username = username;
+		this.password = password;
+	}
 
 	public int getId() {
 		return id;

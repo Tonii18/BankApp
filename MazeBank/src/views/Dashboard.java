@@ -183,7 +183,7 @@ public class Dashboard extends JFrame {
 		centralPanel.setLayout(cardLayout);
 		//Se añaden los 3 paneles al 'centralPanel'
 		centralPanel.add(new Home(user), "Home");
-		centralPanel.add(new Transfer(), "Transfer");
+		centralPanel.add(new Transfer(user), "Transfer");
 		centralPanel.add(new Bizum(), "Bizum");
 		//Se llama a los distintos paneles desde los botones
 		homeButton.addActionListener(e -> cardLayout.show(centralPanel, "Home"));
