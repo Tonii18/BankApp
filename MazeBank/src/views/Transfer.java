@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -13,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import models.User;
 import roundedComponents.RoundPanel;
+import services.DBServices;
 
 public class Transfer extends JPanel {
 
@@ -83,9 +85,9 @@ public class Transfer extends JPanel {
 			JButton button = (JButton)e.getSource();
 			
 			if(button == getMoneyButton) {
-				getMoney(user);
+				// Metodo para retirar dinero
 			}else if(button == setMoneyButton) {
-				setMoney(user);
+				// Metodo para ingresar dinero
 			}
 		}
 		
@@ -95,18 +97,50 @@ public class Transfer extends JPanel {
 	 * External methods
 	 */
 	
-	public void getMoney(User user) {
-		String money = JOptionPane.showInputDialog(null, "Introduce la cantidad a retirar");
-		Float amountRetired = Float.valueOf(money);
-		
-		user.setMoney(user.getMoney() - amountRetired);
-	}
+	/*public void getMoney(User user) {
+        String money = JOptionPane.showInputDialog(null, "Introduce la cantidad a retirar");
+        
+        if (money != null) {
+            try {
+                Float amountRetired = Float.valueOf(money);
+                if (user.getMoney() >= amountRetired) { // Verificar que hay suficiente saldo
+                    user.setMoney(user.getMoney() - amountRetired);
+                    // Actualizar en la base de datos
+                    if (DBServices.updateBalance(user)) {
+                        JOptionPane.showMessageDialog(null, "Retiro exitoso.");
+                    } else {
+                        JOptionPane.showMessageDialog(null, "Error al actualizar el saldo en la base de datos.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Saldo insuficiente.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, introduce un valor válido.");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage());
+            }
+        }
+    }*/
 	
-	public void setMoney(User user) {
-		String money = JOptionPane.showInputDialog(null, "Introduce la cantidad a ingresar");
-		Float amountEntered = Float.valueOf(money);
-		
-		user.setMoney(user.getMoney() + amountEntered);
-	}
+	/*public void setMoney(User user) {
+        String money = JOptionPane.showInputDialog(null, "Introduce la cantidad a ingresar");
+        
+        if (money != null) {
+            try {
+                Float amountEntered = Float.valueOf(money);
+                user.setMoney(user.getMoney() + amountEntered);
+                // Actualizar en la base de datos
+                if (DBServices.updateBalance(user)) {
+                    JOptionPane.showMessageDialog(null, "Ingreso exitoso.");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Error al actualizar el saldo en la base de datos.");
+                }
+            } catch (NumberFormatException e) {
+                JOptionPane.showMessageDialog(null, "Por favor, introduce un valor válido.");
+            } catch (SQLException e) {
+                JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage());
+            }
+        }
+    }*/
 	
 }

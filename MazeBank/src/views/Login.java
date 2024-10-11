@@ -7,7 +7,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -21,9 +21,10 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import models.User;
 import roundedComponents.RoundButton;
 import roundedComponents.RoundPanel;
-import javax.swing.border.LineBorder;
+import services.DBServices;
 
 public class Login extends JFrame {
 
@@ -223,7 +224,7 @@ public class Login extends JFrame {
 			JButton button = (JButton)e.getSource();
 			
 			if(button == loginButton) {
-				JOptionPane.showMessageDialog(null, "Has pulsado el boton");
+				//Metodo para iniciar sesion
 			}else if(button == signupButton) {
 				new SignUp().setVisible(true);
 				dispose();

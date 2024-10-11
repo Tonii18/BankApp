@@ -65,6 +65,7 @@ public class Home extends JPanel {
 		textField.setColumns(10);
 		
 		
+		
 
 	}
 

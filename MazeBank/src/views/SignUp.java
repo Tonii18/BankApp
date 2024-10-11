@@ -242,12 +242,7 @@ public class SignUp extends JFrame {
 					l.setVisible(true);
 					dispose();
 				}else if(button == create) {
-					try {
-						registerUser();
-					} catch (SQLException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
+					//Metodo para registrar usuario
 				}
 			}
 			
@@ -259,22 +254,6 @@ public class SignUp extends JFrame {
 	 * External methods
 	 */
 	
-	public void registerUser() throws SQLException {
-		String username = userField.getText();
-		String email = emailField.getText();
-		String phone = phoneField.getText();
-		String password = passwordField.getText();
-		
-		User u = new User(username, email, password, phone);
-		
-		DBServices service = new DBServices();
-		service.userRegister(u);
-		JOptionPane.showMessageDialog(null, "Usuario registrado correctamente");
-		
-		Dashboard d = new Dashboard(u);
-		d.setVisible(true);
-		dispose();
-		
-	}
+	
 	
 }
