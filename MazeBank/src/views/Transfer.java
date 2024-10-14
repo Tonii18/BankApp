@@ -122,7 +122,7 @@ public class Transfer extends JPanel {
         }
     }*/
 	
-	/*public void setMoney(User user) {
+	public void setMoney(User user) {
         String money = JOptionPane.showInputDialog(null, "Introduce la cantidad a ingresar");
         
         if (money != null) {
@@ -141,6 +141,6 @@ public class Transfer extends JPanel {
                 JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage());
             }
         }
-    }*/
+    }
 	
 }

@@ -224,7 +224,16 @@ public class Login extends JFrame {
 			JButton button = (JButton)e.getSource();
 			
 			if(button == loginButton) {
-				//Metodo para iniciar sesion
+				try {
+					if(loginUser()) {
+						Dashboard d = new Dashboard(new User(textField.getText(), passwordField.getText()));
+						d.setVisible(true);
+						dispose();
+					}
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}else if(button == signupButton) {
 				new SignUp().setVisible(true);
 				dispose();
@@ -237,7 +246,26 @@ public class Login extends JFrame {
 	 * External methods
 	 */
 	
+	public boolean loginUser() throws SQLException {
+		String username = textField.getText();
+		String password = passwordField.getText();
+		
+		User u = new User(username, password);
+		if(DBServices.loginUser(u)) {
+			JOptionPane.showMessageDialog(null, "Has iniciado sesion correctamente");
+			return true;
+		}else {
+			JOptionPane.showMessageDialog(null, "Datos incorrectos, vuelvelo a intentar");
+			limpiar();
+		}
+		return false;
+		
+	}
 	
+	public void limpiar() {
+		textField.setText("");
+		passwordField.setText("");
+	}
 	
 	
 }

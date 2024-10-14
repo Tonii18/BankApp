@@ -242,7 +242,13 @@ public class SignUp extends JFrame {
 					l.setVisible(true);
 					dispose();
 				}else if(button == create) {
-					//Metodo para registrar usuario
+					try {
+						Dashboard d = new Dashboard(createUser());
+						d.setVisible(true);
+						dispose();
+					} catch (SQLException e1) {
+						e1.printStackTrace();
+					}
 				}
 			}
 			
@@ -253,6 +259,21 @@ public class SignUp extends JFrame {
 	/*
 	 * External methods
 	 */
+	
+	public User createUser() throws SQLException {
+		
+		String username = userField.getText();
+		String password = passwordField.getText();
+		String email = emailField.getText();
+		String phone = phoneField.getText();
+		
+		User u = new User(username, email, password, phone);
+		DBServices.createAccount(u);
+		
+		JOptionPane.showMessageDialog(null, "Has creado tu cuenta correctamente");
+		
+		return u;
+	}
 	
 	
 	
