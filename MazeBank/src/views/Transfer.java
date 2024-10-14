@@ -24,12 +24,14 @@ public class Transfer extends JPanel {
 	private JButton getMoneyButton;
 	
 	private User user;
+	private Home homepanel;
 
 	/**
 	 * Create the panel.
 	 */
-	public Transfer(User user) {
+	public Transfer(User user, Home homepanel) {
 		this.user = user;
+		this.homepanel = homepanel;
 		
 		setBackground(new Color(227, 222, 222));
 		setLayout(null);
@@ -87,7 +89,7 @@ public class Transfer extends JPanel {
 			if(button == getMoneyButton) {
 				// Metodo para retirar dinero
 			}else if(button == setMoneyButton) {
-				// Metodo para ingresar dinero
+				setMoney(user);
 			}
 		}
 		
@@ -127,11 +129,12 @@ public class Transfer extends JPanel {
         
         if (money != null) {
             try {
-                Float amountEntered = Float.valueOf(money);
+                Double amountEntered = Double.valueOf(money);
                 user.setMoney(user.getMoney() + amountEntered);
                 // Actualizar en la base de datos
-                if (DBServices.updateBalance(user)) {
+                if (DBServices.depositMoney(user, amountEntered)) {
                     JOptionPane.showMessageDialog(null, "Ingreso exitoso.");
+                    homepanel.updateBalance();
                 } else {
                     JOptionPane.showMessageDialog(null, "Error al actualizar el saldo en la base de datos.");
                 }

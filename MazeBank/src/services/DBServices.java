@@ -23,7 +23,7 @@ public class DBServices {
 		 ps.setString(2, user.getEmail());
 		 ps.setString(3, user.getPassword());
 		 ps.setString(4, user.getPhone());
-		 ps.setFloat(5, user.getMoney());
+		 ps.setDouble(5, user.getMoney());
 		 
 		 int rowsCreated = ps.executeUpdate();
 		 
@@ -55,8 +55,40 @@ public class DBServices {
 	
 	//Metodo para ingresar dinero
 	
-	public static boolean depositMoney() {
+	public static boolean depositMoney(User user, double amount) throws SQLException {
+		boolean updated = false;
 		
+		String sql = "UPDATE users SET saldo = saldo + ? where nombre = ?";
+		Connection conn = DbConnection.getConnection();
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+		
+		ps.setDouble(1,  amount);
+		ps.setString(2, user.getUsername());
+		
+		int rowsUpdated = ps.executeUpdate();
+		
+		updated = true;
+		
+		return updated;
+		
+	}
+	
+	//Metodo para obtener el saldo actualizado
+	
+	public static double getCurrentBalance(User user) throws SQLException {
+	    String sql = "SELECT saldo FROM users WHERE nombre = ?";
+	    Connection conn = DbConnection.getConnection();
+	    
+	    PreparedStatement ps = conn.prepareStatement(sql);
+	    ps.setString(1, user.getUsername());
+	    
+	    ResultSet rs = ps.executeQuery();
+	    if (rs.next()) {
+	    	return rs.getDouble("saldo");
+	    }
+	    
+	    return 0; // Devuelve 0 si no se encuentra el usuario
 	}
 	
 	

@@ -2,9 +2,11 @@ package views;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -12,6 +14,7 @@ import javax.swing.SwingConstants;
 
 import models.User;
 import roundedComponents.RoundPanel;
+import services.DBServices;
 
 public class Home extends JPanel {
 
@@ -23,7 +26,7 @@ public class Home extends JPanel {
 	/**
 	 * Create the panel.
 	 */
-	public Home(User user) {
+	public Home(User user) { 
 		setFocusable(false);
 		this.user = user;
 		
@@ -59,14 +62,28 @@ public class Home extends JPanel {
 		textField.setHorizontalAlignment(SwingConstants.RIGHT);
 		textField.setForeground(new Color(154, 154, 154));
 		textField.setFont(new Font("Inter 28pt Black", Font.PLAIN, 90));
-		textField.setText(String.valueOf(user.getMoney()));
+		//textField.setText(String.valueOf(user.getMoney()));
+		
 		textField.setBounds(261, 75, 638, 145);
 		showMoneyPanel.add(textField);
 		textField.setColumns(10);
 		
 		
-		
+		updateBalance();
 
 	}
+	
+	/*
+	 * External Methods
+	 */
+	
+	public void updateBalance() {
+        try {
+            textField.setText(String.valueOf(DBServices.getCurrentBalance(user)));
+            //textField.setText(String.valueOf(user.getMoney()));
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error al obtener el saldo: " + e.getMessage());
+        }
+    }
 
 }

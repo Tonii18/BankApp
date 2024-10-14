@@ -10,7 +10,7 @@ public class User {
 	private String email;
 	private String password;
 	private String phone;
-	private float money;
+	private double money;
 	private List<Contact> contacts;
 	
 	public User() {
@@ -23,7 +23,7 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.phone = phone;
-		this.money = 0.0F;
+		this.money = 0.0;
 		this.contacts = new ArrayList<>();
 	}
 	
@@ -72,11 +72,11 @@ public class User {
 		this.phone = phone;
 	}
 
-	public float getMoney() {
+	public double getMoney() {
 		return money;
 	}
 
-	public void setMoney(float money) {
+	public void setMoney(double money) {
 		this.money = money;
 	}
 
