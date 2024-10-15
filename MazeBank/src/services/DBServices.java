@@ -74,6 +74,26 @@ public class DBServices {
 		
 	}
 	
+	//Metodo para retirar dinero
+	
+	public static boolean withdrawMoney(User user, double amount) throws SQLException {
+		boolean updated = false;
+		
+		String sql = "UPDATE users SET saldo = saldo - ? WHERE nombre = ?";
+		Connection conn = DbConnection.getConnection();
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+		
+		ps.setDouble(1,  amount);
+		ps.setString(2, user.getUsername());
+		
+		int rowsUpdated = ps.executeUpdate();
+		
+		updated = true;
+		
+		return updated;
+	}
+	
 	//Metodo para obtener el saldo actualizado
 	
 	public static double getCurrentBalance(User user) throws SQLException {

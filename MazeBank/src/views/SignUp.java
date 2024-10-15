@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -270,11 +271,13 @@ public class SignUp extends JFrame {
 		User u = new User(username, email, password, phone);
 		DBServices.createAccount(u);
 		
-		JOptionPane.showMessageDialog(null, "Has creado tu cuenta correctamente");
+		JOptionPane.showMessageDialog(null, "Has creado tu cuenta correctamente", "Creacion de cuenta",  JOptionPane.PLAIN_MESSAGE, getIcon("/comprobado.png", 40, 40));
 		
 		return u;
 	}
 	
-	
+	public Icon getIcon(String path, int w, int h) {
+		return new ImageIcon(new ImageIcon(getClass().getResource(path)).getImage().getScaledInstance(w, h, 0));
+	}
 	
 }

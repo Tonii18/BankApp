@@ -6,6 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -87,7 +88,7 @@ public class Transfer extends JPanel {
 			JButton button = (JButton)e.getSource();
 			
 			if(button == getMoneyButton) {
-				// Metodo para retirar dinero
+				getMoney(user);
 			}else if(button == setMoneyButton) {
 				setMoney(user);
 			}
@@ -99,17 +100,19 @@ public class Transfer extends JPanel {
 	 * External methods
 	 */
 	
-	/*public void getMoney(User user) {
-        String money = JOptionPane.showInputDialog(null, "Introduce la cantidad a retirar");
+	public void getMoney(User user) {
+        String money = (String) JOptionPane.showInputDialog(null, "Introduce la cantidad a retirar", "Retiro de dinero", 
+        		JOptionPane.PLAIN_MESSAGE, getIcon("/Arrow down-left.png", 40, 40), null, null);
         
         if (money != null) {
             try {
-                Float amountRetired = Float.valueOf(money);
-                if (user.getMoney() >= amountRetired) { // Verificar que hay suficiente saldo
+                Double amountRetired = Double.valueOf(money);
+                if (DBServices.getCurrentBalance(user) > amountRetired) { // Verificar que hay suficiente saldo
                     user.setMoney(user.getMoney() - amountRetired);
                     // Actualizar en la base de datos
-                    if (DBServices.updateBalance(user)) {
+                    if (DBServices.withdrawMoney(user, amountRetired)) {
                         JOptionPane.showMessageDialog(null, "Retiro exitoso.");
+                        homepanel.updateBalance();
                     } else {
                         JOptionPane.showMessageDialog(null, "Error al actualizar el saldo en la base de datos.");
                     }
@@ -122,10 +125,11 @@ public class Transfer extends JPanel {
                 JOptionPane.showMessageDialog(null, "Error en la base de datos: " + e.getMessage());
             }
         }
-    }*/
+    }
 	
 	public void setMoney(User user) {
-        String money = JOptionPane.showInputDialog(null, "Introduce la cantidad a ingresar");
+        String money = (String) JOptionPane.showInputDialog(null, "Introduce la cantidad a ingresar", "Ingreso de dinero", 
+        		JOptionPane.PLAIN_MESSAGE, getIcon("/Arrow up-right.png", 40, 40), null, null);
         
         if (money != null) {
             try {
@@ -145,5 +149,9 @@ public class Transfer extends JPanel {
             }
         }
     }
+	
+	public Icon getIcon(String path, int w, int h) {
+		return new ImageIcon(new ImageIcon(getClass().getResource(path)).getImage().getScaledInstance(w, h, 0));
+	}
 	
 }

@@ -8,10 +8,12 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JTextField;
@@ -292,6 +294,8 @@ public class Dashboard extends JFrame {
 			
 		});
 		
+		logoutButton.addActionListener(new buttons());
+		
 		/*bizumButton.addActionListener(new buttons());
 		homeButton.addActionListener(new buttons());
 		transferButton.addActionListener(new buttons());*/
@@ -307,18 +311,27 @@ public class Dashboard extends JFrame {
 	    @Override
 	    public void actionPerformed(ActionEvent e) {
 	        JButton button = (JButton) e.getSource();
-
+	        
+	        if(button == logoutButton) {
+	        	Object opciones[] = {"Si", "No"};
+	        	int option = JOptionPane.showOptionDialog(null, "¿Seguro que deseas cerrar sesion?", "Cierre de sesion", 
+	        			JOptionPane.DEFAULT_OPTION, JOptionPane.PLAIN_MESSAGE, getIcon("/cerrar-sesion.png", 40, 40), opciones, opciones[0]);
+	        	if(option == 0) {
+	        		Login l = new Login();
+	        		l.setVisible(true);
+	        		dispose();
+	        	}
+	        }
 	        
 	    }
 	}
-
-
-	
 	
 	/*
 	 * External methods
 	 */
 	
-	
+	public Icon getIcon(String path, int w, int h) {
+		return new ImageIcon(new ImageIcon(getClass().getResource(path)).getImage().getScaledInstance(w, h, 0));
+	}
 	
 }

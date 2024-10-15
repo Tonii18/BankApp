@@ -9,6 +9,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.sql.SQLException;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -252,10 +253,10 @@ public class Login extends JFrame {
 		
 		User u = new User(username, password);
 		if(DBServices.loginUser(u)) {
-			JOptionPane.showMessageDialog(null, "Has iniciado sesion correctamente");
+			JOptionPane.showMessageDialog(null, "Has iniciado sesion correctamente", "Iniciar sesion en Maze Bank", JOptionPane.PLAIN_MESSAGE, getIcon("/comprobado.png", 40, 40));
 			return true;
 		}else {
-			JOptionPane.showMessageDialog(null, "Datos incorrectos, vuelvelo a intentar");
+			JOptionPane.showMessageDialog(null, "Datos incorrectos, vuelvelo a intentar", "Sesion denegada", JOptionPane.PLAIN_MESSAGE, getIcon("/boton-eliminar.png", 40, 40));
 			limpiar();
 		}
 		return false;
@@ -265,6 +266,10 @@ public class Login extends JFrame {
 	public void limpiar() {
 		textField.setText("");
 		passwordField.setText("");
+	}
+	
+	public Icon getIcon(String path, int w, int h) {
+		return new ImageIcon(new ImageIcon(getClass().getResource(path)).getImage().getScaledInstance(w, h, 0));
 	}
 	
 	
