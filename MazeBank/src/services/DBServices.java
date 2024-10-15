@@ -111,6 +111,28 @@ public class DBServices {
 	    return 0; // Devuelve 0 si no se encuentra el usuario
 	}
 	
+	//Metodo para devolver un usuario
+	
+	public static User getUser(String username) throws SQLException {
+		String sql = "SELECT * FROM users WHERE nombre = ?";
+		Connection conn = DbConnection.getConnection();
+		
+		PreparedStatement ps = conn.prepareStatement(sql);
+		
+		ps.setString(1, username);
+		
+		ResultSet rs = ps.executeQuery();
+		
+		if(rs.next()) {
+			String email = rs.getString("correo");
+			String telefono = rs.getString("telefono");
+			Double saldo = rs.getDouble("saldo");
+			String contraseña = rs.getString("contrasena");
+			
+			return new User(username, email, contraseña, telefono);
+		}
+		return null;
+	}
 	
 
 }

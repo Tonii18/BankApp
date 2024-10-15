@@ -1,5 +1,6 @@
 package views;
 
+import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -15,7 +16,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JSeparator;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
@@ -24,7 +24,6 @@ import models.User;
 import roundedComponents.RoundButton;
 import roundedComponents.RoundLabel;
 import roundedComponents.RoundPanel;
-import java.awt.CardLayout;
 
 public class Dashboard extends JFrame {
 
@@ -171,6 +170,15 @@ public class Dashboard extends JFrame {
 		profileMenu.setIcon(new ImageIcon(getClass().getResource("/seeProfile.png")));
 		profileMenu.setBounds(889, 16, 93, 93);
 		navBar.add(profileMenu);
+		
+		profileMenu.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				ProfileFrame p = new ProfileFrame(user);
+				p.setVisible(true);
+			}
+			
+		});
 		
 		//Creacion de los paneles variables
 
