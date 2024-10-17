@@ -4,7 +4,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
+import models.Contact;
 import models.User;
 
 public class DBServices {
@@ -134,5 +137,71 @@ public class DBServices {
 		return null;
 	}
 	
+	//Metodo para obtener el ID de un usuario
+	
+	public static int obtenerUserIdPorNombre(String nombre) {
+	    int userId = 0;
+	    String query = "SELECT id FROM users WHERE nombre = ?";
+	    
+	    try (Connection conn = DbConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
+	        
+	        stmt.setString(1, nombre);
+	        try (ResultSet rs = stmt.executeQuery()) {
+	            if (rs.next()) {
+	                userId = rs.getInt("id"); // Obtiene el ID del usuario
+	            }
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    return userId;
+	}
+
+	
+	//Metodo que devuelve una lista de contactos
+	
+	public static List<Contact> getUserContacts(int users_id) throws SQLException {
+	    List<Contact> contacts = new ArrayList<>();
+	    String query = "SELECT * FROM contacts WHERE users_id = ?";
+	    
+	    try (Connection conn = DbConnection.getConnection();
+	        PreparedStatement statement = conn.prepareStatement(query)) {
+	        statement.setInt(1, users_id);
+	        ResultSet resultSet = statement.executeQuery();
+	        
+	        while (resultSet.next()) {
+	            Contact contact = new Contact();
+	            contact.setNombre(resultSet.getString("nombre"));
+	            contact.setApellido(resultSet.getString("apellido"));
+	            contact.setTelefono(resultSet.getString("telefono"));
+	            contacts.add(contact);
+	        }
+	    }
+	    
+	    return contacts;
+	}
+	
+	//Metodo para añadir un nuevo contacto
+	
+	public static boolean insertarContacto(int userId, String nombre, String apellido, String telefono) {
+	    String query = "INSERT INTO contacts (users_id, nombre, apellido, telefono) VALUES (?, ?, ?, ?)";
+	    
+	    try (Connection conn = DbConnection.getConnection();
+	         PreparedStatement stmt = conn.prepareStatement(query)) {
+	        
+	        stmt.setInt(1, userId); // Aquí usas el userId obtenido
+	        stmt.setString(2, nombre);
+	        stmt.setString(3, apellido);
+	        stmt.setString(4, telefono);
+	        stmt.executeUpdate();
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    }
+	    
+	    return true;
+	}
+
+
 
 }

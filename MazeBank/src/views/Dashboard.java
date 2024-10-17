@@ -200,7 +200,7 @@ public class Dashboard extends JFrame {
 	    Transfer transferPanel = new Transfer(user, homePanel);  // Pasar Home a Transfer
 
 	    // Crear instancia de Bizum (si es necesario)
-	    Bizum bizumPanel = new Bizum();
+	    Bizum bizumPanel = new Bizum(user);
 
 	    // Añadir los paneles al CardLayout del centralPanel
 	    
@@ -212,41 +212,6 @@ public class Dashboard extends JFrame {
 		homeButton.addActionListener(e -> cardLayout.show(centralPanel, "Home"));
 	    transferButton.addActionListener(e -> cardLayout.show(centralPanel, "Transfer"));
 	    bizumButton.addActionListener(e -> cardLayout.show(centralPanel, "Bizum"));
-		
-		/*RoundPanel panel = new RoundPanel(15, 15);
-		panel.setBounds(36, 24, 921, 246);
-		panel.setCustomBorderColor(new Color(44, 144, 151));
-		centralPanel.add(panel);
-		panel.setLayout(null);
-		
-		JLabel myMoney = new JLabel("Mi saldo");
-		myMoney.setForeground(new Color(44, 144, 151));
-		myMoney.setFont(new Font("Inter 18pt Black", Font.ITALIC, 36));
-		myMoney.setHorizontalAlignment(SwingConstants.CENTER);
-		myMoney.setBounds(10, 10, 178, 47);
-		panel.add(myMoney);
-		
-		JSeparator separator = new JSeparator();
-		separator.setBorder(null);
-		separator.setForeground(new Color(44, 144, 151));
-		separator.setBackground(null);
-		separator.setBounds(2, 60, 918, 47);
-		panel.add(separator);
-		
-		JLabel creditCard = new JLabel("");
-		creditCard.setBounds(20, 71, 219, 165);
-		creditCard.setIcon(new ImageIcon(getClass().getResource("/card.png")));
-		panel.add(creditCard);
-		
-		moneyField = new JTextField();
-		moneyField.setHorizontalAlignment(SwingConstants.RIGHT);
-		moneyField.setEditable(false);
-		moneyField.setForeground(new Color(154, 154, 154));
-		moneyField.setFont(new Font("Inter 24pt Black", Font.PLAIN, 96));
-		moneyField.setBounds(372, 80, 527, 137);
-		moneyField.setText(String.valueOf(user.getMoney()));
-		panel.add(moneyField);
-		moneyField.setColumns(10);*/
 		
 		//EventsListeners
 		

@@ -7,14 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.sql.SQLException;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
+import models.User;
 import roundedComponents.RoundButton;
 import roundedComponents.RoundPanel;
 import roundedComponents.RoundTextField;
@@ -25,11 +26,16 @@ public class Bizum extends JPanel {
 	private RoundTextField amountMoney;
 	
 	private JButton addButton;
+	
+	private User user;
+	
 
 	/**
 	 * Create the panel.
 	 */
-	public Bizum() {
+	public Bizum(User user) {
+		this.user = user;
+		
 		setBackground(new Color(227, 222, 222));
 		setLayout(null);
         
@@ -74,15 +80,26 @@ public class Bizum extends JPanel {
         addButton.setBorder(null);
         addButton.setIcon(new ImageIcon(getClass().getResource("/addContact.png")));
         
-        submit.addActionListener(new ActionListener() {
+        addButton.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				ContactList c;
 				try {
-					sendBizum();
-				} catch (InterruptedException e1) {
+					c = new ContactList(user);
+					c.setVisible(true);
+				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
+				
+			}
+        	
+        });
+        
+        submit.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
 			}
         	
         });
@@ -126,11 +143,6 @@ public class Bizum extends JPanel {
 
 	}
 	
-	public void sendBizum() throws InterruptedException {
-		String contacto = JOptionPane.showInputDialog(null, "Escribe el contacto al que le quieres hacer el bizum: ");
-		Thread.sleep(2000);
-		JOptionPane.showMessageDialog(null, "Bizum mandado con exito a "+contacto);
-		amountMoney.setText("");
-	}
+	
 	
 }

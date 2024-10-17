@@ -272,7 +272,6 @@ public class SignUp extends JFrame {
 		DBServices.createAccount(u);
 		
 		JOptionPane.showMessageDialog(null, "Has creado tu cuenta correctamente", "Creacion de cuenta",  JOptionPane.PLAIN_MESSAGE, getIcon("/comprobado.png", 40, 40));
-		
 		return u;
 	}
 	

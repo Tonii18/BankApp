@@ -1,61 +1,67 @@
 package models;
 
 public class Contact {
-	
-	private int id;
-	private String username;
-	private String email;
-	private String phone;
-	
-	public Contact() {
-		
-	}
+    
+    private int id;
+    private int userId;  // Relaciona el contacto con el usuario
+    private String nombre;
+    private String apellido;
+    private String telefono;
+    
+    public Contact() {
+    }
 
-	public Contact(int id, String username, String email, String phone) {
-		super();
-		this.id = id;
-		this.username = username;
-		this.email = email;
-		this.phone = phone;
-	}
+    public Contact(int id, int userId, String nombre, String apellido, String telefono) {
+        this.id = id;
+        this.userId = userId;
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.telefono = telefono;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public int getUserId() {
+        return userId;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-	public String getEmail() {
-		return email;
-	}
+    public String getNombre() {
+        return nombre;
+    }
 
-	public void setEmail(String email) {
-		this.email = email;
-	}
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
 
-	public String getPhone() {
-		return phone;
-	}
+    public String getApellido() {
+        return apellido;
+    }
 
-	public void setPhone(String phone) {
-		this.phone = phone;
-	}
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
 
-	@Override
-	public String toString() {
-		return "Contact [id=" + id + ", username=" + username + ", email=" + email + ", phone=" + phone + "]";
-	}
-	
-	
+    public String getTelefono() {
+        return telefono;
+    }
 
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    @Override
+    public String toString() {
+        return "Contact [id=" + id + ", userId=" + userId + ", nombre=" + nombre + ", apellido=" + apellido + ", telefono=" + telefono + "]";
+    }
+    
 }

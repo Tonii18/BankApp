@@ -14,7 +14,7 @@ public class DbConnection {
 	private static Connection cnx = null;
 	
 	public static Connection getConnection() throws SQLException {
-		if(cnx == null) {
+		if(cnx == null || cnx.isClosed()) {
 			try {
 				Class.forName(controllerName);
 				cnx = DriverManager.getConnection(url, username, password);
