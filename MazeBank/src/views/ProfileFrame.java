@@ -53,6 +53,10 @@ public class ProfileFrame extends JFrame {
 	public ProfileFrame(User user) {
 		this.user = user;
 		
+		setTitle("Tu perfil");
+		ImageIcon icon = new ImageIcon(getClass().getResource("/bankPNG.png"));
+		setIconImage(icon.getImage());
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 500, 680);
 		contentPane = new JPanel();

@@ -9,9 +9,11 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
@@ -19,6 +21,7 @@ import models.User;
 import roundedComponents.RoundButton;
 import roundedComponents.RoundPanel;
 import roundedComponents.RoundTextField;
+import services.DBServices;
 
 public class Bizum extends JPanel {
 
@@ -28,13 +31,15 @@ public class Bizum extends JPanel {
 	private JButton addButton;
 	
 	private User user;
+	private Home home;
 	
 
 	/**
 	 * Create the panel.
 	 */
-	public Bizum(User user) {
+	public Bizum(User user, Home home) {
 		this.user = user;
+		this.home = home;
 		
 		setBackground(new Color(227, 222, 222));
 		setLayout(null);
@@ -85,7 +90,7 @@ public class Bizum extends JPanel {
 			public void actionPerformed(ActionEvent e) {
 				ContactList c;
 				try {
-					c = new ContactList(user);
+					c = new ContactList(user, Bizum.this);
 					c.setVisible(true);
 				} catch (SQLException e1) {
 					// TODO Auto-generated catch block
@@ -99,7 +104,15 @@ public class Bizum extends JPanel {
         submit.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				try {
+					DBServices.withdrawMoney(user, getAmountMoney());
+					JOptionPane.showMessageDialog(null, "¡Bizum enviado correctamente!", "Enviar Bizum", JOptionPane.PLAIN_MESSAGE, getIcon("/comprobado.png", 40, 40));
+					home.updateBalance();
+					amountMoney.setText("");
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
         	
         });
@@ -143,6 +156,29 @@ public class Bizum extends JPanel {
 
 	}
 	
+	/*
+	 * External Methods
+	 */
+	
+	public double getAmountMoney() {
+	    String text = amountMoney.getText().trim(); // Eliminar espacios en blanco alrededor del texto
+	    if (text.isEmpty()) {
+	        // Si el campo está vacío, devolvemos un valor por defecto, por ejemplo 0
+	        return 0;
+	    }
+
+	    try {
+	        return Double.valueOf(text);
+	    } catch (NumberFormatException e) {
+	        // Manejo de la excepción en caso de que no sea un número válido
+	        JOptionPane.showMessageDialog(this, "Por favor, introduce una cantidad válida.", "Error", JOptionPane.ERROR_MESSAGE);
+	        return 0; // Devolver 0 en caso de error
+	    }
+	}
+
+	public Icon getIcon(String path, int w, int h) {
+		return new ImageIcon(new ImageIcon(getClass().getResource(path)).getImage().getScaledInstance(w, h, 0));
+	}
 	
 	
 }

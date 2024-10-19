@@ -46,7 +46,7 @@ public class SignUp extends JFrame {
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -57,12 +57,16 @@ public class SignUp extends JFrame {
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
 	public SignUp() {
+		setTitle("Crea tu cuenta de Maze Bank");
+		ImageIcon icon = new ImageIcon(getClass().getResource("/bankPNG.png"));
+		setIconImage(icon.getImage());
+		
 		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);

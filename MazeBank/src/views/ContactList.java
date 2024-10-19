@@ -14,11 +14,14 @@ import java.util.List;
 import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 
 import models.Contact;
 import models.User;
@@ -34,6 +37,9 @@ public class ContactList extends JFrame {
 	private JScrollPane scrollPane;
 
 	private User user;
+	private Bizum bizum;
+	
+	
 
 	/**
 	 * Launch the application.
@@ -50,8 +56,13 @@ public class ContactList extends JFrame {
 	 * 
 	 * @throws SQLException
 	 */
-	public ContactList(User user) throws SQLException {
+	public ContactList(User user, Bizum bizum) throws SQLException {
 		this.user = user;
+		this.bizum = bizum;
+		
+		setTitle("Lista de contactos");
+		ImageIcon icon = new ImageIcon(getClass().getResource("/bankPNG.png"));
+		setIconImage(icon.getImage());
 
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 460, 650);
@@ -64,6 +75,7 @@ public class ContactList extends JFrame {
 
 		// Crear el panel que contendrá la lista de contactos
         JPanel contactPanelList = new JPanel();
+        contactPanelList.setBorder(null);
         contactPanelList.setBackground(new Color(238, 238, 238));
         // Cambiamos a BoxLayout para alinear los contactos en una columna
         contactPanelList.setLayout(new BoxLayout(contactPanelList, BoxLayout.Y_AXIS));
@@ -79,25 +91,47 @@ public class ContactList extends JFrame {
 
 		for (Contact contacto : contactos) {
 		    // Crear un panel para cada contacto
-		    JPanel contactPanel = new JPanel();
+		    ContactViewer contactPanel = new ContactViewer(10, 10,contacto.getNombre(),contacto.getApellido(), contacto.getTelefono() );
 		    contactPanel.setLayout(new BorderLayout());
 		    contactPanel.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 
 		    // Definir la etiqueta con la información del contacto
-		    JLabel contactLabel = new JLabel(
+		   /* JLabel contactLabel = new JLabel(
 		            contacto.getNombre() + " " + contacto.getApellido() + " - " + contacto.getTelefono());
-		    contactPanel.add(contactLabel, BorderLayout.CENTER);
+		    contactPanel.add(contactLabel, BorderLayout.CENTER);*/
 
 		    // Establecer un tamaño fijo para el panel
-		    contactPanel.setPreferredSize(new Dimension(400, 80)); 
-		    contactPanel.setMinimumSize(new Dimension(400, 80));  // Tamaño mínimo
-		    contactPanel.setMaximumSize(new Dimension(400, 80));  // Tamaño máximo
+		    contactPanel.setPreferredSize(new Dimension(380, 90)); 
+		    contactPanel.setMinimumSize(new Dimension(380, 90));  // Tamaño mínimo
+		    contactPanel.setMaximumSize(new Dimension(380, 90));  // Tamaño máximo
 
 		    // Añadir el panel de contacto al panel principal que usa BoxLayout
 		    contactPanelList.add(contactPanel);
 
 		    // Añadir un espacio rígido entre los contactos para evitar colisiones visuales
 		    contactPanelList.add(Box.createRigidArea(new Dimension(0, 10))); // Espacio vertical de 10 píxeles
+		    
+		    contactPanel.addMouseListener(new MouseAdapter() {
+
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					JOptionPane.showMessageDialog(null, "¿Quieres enviar "+String.valueOf(bizum.getAmountMoney())+" a "+contacto.getNombre()+" "+contacto.getApellido()+"?", "Enviar Bizum", 
+							JOptionPane.PLAIN_MESSAGE, getIcon("/profileSmall.png", 40, 40));
+					dispose();
+				}
+
+				@Override
+				public void mouseEntered(MouseEvent e) {
+					contactPanel.setCustomBorderColor(new Color(0, 187, 255));
+				}
+
+				@Override
+				public void mouseExited(MouseEvent e) {
+					contactPanel.setCustomBorderColor(new Color(117, 117, 117));
+				}
+		    	
+		    });
+		    
 		}
 
 		addContact = new RoundButton("Agregar un nuevo contacto", 10, 10);
@@ -131,5 +165,13 @@ public class ContactList extends JFrame {
 
 		});
 
+	}
+	
+	/*
+	 * External Methods
+	 */
+	
+	public Icon getIcon(String path, int w, int h) {
+		return new ImageIcon(new ImageIcon(getClass().getResource(path)).getImage().getScaledInstance(w, h, 0));
 	}
 }

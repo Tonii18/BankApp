@@ -69,6 +69,10 @@ public class Dashboard extends JFrame {
 	 */
 	public Dashboard(User user) {
 		this.user = user;
+		
+		setTitle("Menu principal");
+		ImageIcon icon = new ImageIcon(getClass().getResource("/bankPNG.png"));
+		setIconImage(icon.getImage());
 
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
@@ -200,7 +204,7 @@ public class Dashboard extends JFrame {
 	    Transfer transferPanel = new Transfer(user, homePanel);  // Pasar Home a Transfer
 
 	    // Crear instancia de Bizum (si es necesario)
-	    Bizum bizumPanel = new Bizum(user);
+	    Bizum bizumPanel = new Bizum(user, homePanel);
 
 	    // Añadir los paneles al CardLayout del centralPanel
 	    
