@@ -59,8 +59,6 @@ public class Login extends JFrame {
 		setTitle("Inicia sesion en tu cuenta de Maze Bank");
 		ImageIcon icon = new ImageIcon(getClass().getResource("/bankPNG.png"));
 		setIconImage(icon.getImage());
-		
-		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1280, 720);
 		
