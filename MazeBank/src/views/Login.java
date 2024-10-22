@@ -56,7 +56,7 @@ public class Login extends JFrame {
 	 * Create the frame.
 	 */
 	public Login() {
-		setTitle("Inicia sesion en tu cuenta de Maze Bank");
+		setTitle("Inicia sesion");
 		ImageIcon icon = new ImageIcon(getClass().getResource("/bankPNG.png"));
 		setIconImage(icon.getImage());
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
